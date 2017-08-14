@@ -29,4 +29,22 @@ describe "navigation" do
       expect(page).to have_header("Users")
     end
   end
+
+  it "excludes resources with no index action" do
+    begin
+      Rails.application.routes.draw do
+        namespace(:admin) do
+          resources :customers
+          resources :line_items, only: [:show]
+        end
+      end
+
+      visit admin_customers_path
+
+      navigation = find(".navigation")
+      expect(navigation).not_to have_link("Line Items")
+    ensure
+      reset_routes
+    end
+  end
 end
