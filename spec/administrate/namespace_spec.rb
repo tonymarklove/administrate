@@ -11,7 +11,7 @@ describe Administrate::Namespace do
           namespace(:admin) { resources :customers }
         end
 
-        expect(namespace.resources.map(&:to_sym)).to eq [:customers]
+        expect(namespace.resources.map(&:to_s)).to eq ["customers"]
       ensure
         reset_routes
       end

@@ -6,7 +6,7 @@ module Administrate
 
     def resources
       @resources ||= routes.map(&:first).uniq.map do |path|
-        Resource.new(namespace, path)
+        Resource.new(path)
       end
     end
 
