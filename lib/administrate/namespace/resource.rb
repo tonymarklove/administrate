@@ -1,24 +1,25 @@
 module Administrate
   class Namespace
     class Resource
-      attr_reader :name
-
-      def initialize(resource, actions)
-        @name = resource
-        @actions = actions
+      def initialize(route)
+        @route = route
       end
 
-      def to_s
-        name.to_s
+      def name
+        route[:controller].to_s
       end
 
-      def index?
-        actions.include?("index")
+      def action
+        route[:action]
+      end
+
+      def model_class
+        route[:model].classify.constantize
       end
 
       private
 
-      attr_reader :actions
+      attr_reader :route
     end
   end
 end

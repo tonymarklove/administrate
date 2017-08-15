@@ -31,11 +31,11 @@ module Administrate
       private
 
       def singular_dashboard_resources
-        dashboard_resources.map(&:to_s).map(&:singularize)
+        dashboard_resources.map(&:name).map(&:singularize)
       end
 
       def dashboard_resources
-        Administrate::Namespace.new(:admin).resources
+        Administrate::Namespace.new(:admin).indexable_resources
       end
     end
   end

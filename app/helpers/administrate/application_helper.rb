@@ -7,17 +7,8 @@ module Administrate
       render locals: locals, partial: field.to_partial_path
     end
 
-    def class_from_resource(resource_name)
-      resource_name.to_s.classify.constantize
-    end
-
-    def display_resource_name(resource_name)
-      class_from_resource(resource_name).
-        model_name.
-        human(
-          count: PLURAL_MANY_COUNT,
-          default: resource_name.to_s.pluralize.titleize,
-        )
+    def display_resource_name(resource)
+      resource.model_class.model_name.human(count: PLURAL_MANY_COUNT, default: resource.name.pluralize.titleize)
     end
 
     def sort_order(order)
@@ -28,8 +19,8 @@ module Administrate
       end
     end
 
-    def resource_index_route_key(resource_name)
-      ActiveModel::Naming.route_key(class_from_resource(resource_name))
+    def resource_index_route_key(resource)
+      ActiveModel::Naming.route_key(resource.model_class)
     end
 
     def sanitized_order_params

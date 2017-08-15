@@ -81,8 +81,8 @@ module Administrate
 
     helper_method :valid_action?
     def valid_action?(name, resource = resource_class)
-      !!routes.detect do |controller, action|
-        controller == resource.to_s.underscore.pluralize && action == name.to_s
+      !!routes.detect do |route|
+        route[:controller] == resource.to_s.underscore.pluralize && route[:action] == name.to_s
       end
     end
 
